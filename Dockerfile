@@ -33,7 +33,7 @@ ARG ARCHIVE=spark-$SPARK_VERSION-bin-without-hadoop.tgz
 RUN \
   mkdir -p "${SPARK_HOME}" && \
   wget http://ftp.ps.pl/pub/apache/spark/spark-$SPARK_VERSION/$ARCHIVE && \
-  tar -xzf $ARCHIVE --strip-components=1 -C $SPARK_HOME   && \
+  tar -xzf $ARCHIVE --strip-components=1 -C $SPARK_HOME && \
   rm -f $ARCHIVE
 
 # Expose ports
