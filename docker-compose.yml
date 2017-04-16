@@ -1,0 +1,107 @@
+# docker-spark-1 acts as a Spark Master
+# Spark Master Web UI on port 9090
+
+version: '2'
+services:
+  docker-spark-1:
+    image: kduda/spark:jre-8_spark-2.1.0
+    container_name: docker-spark-1
+    environment:
+      - SPARK_NODE_ROLE=master
+      - SPARK_MASTER_WEBUI_PORT=9090
+      - SPARK_MASTER_CORES=1
+      - SPARK_MASTER_MEMORY=1g
+    volumes:
+      - data-1:/tmp/data
+    ports:
+      - 4040:4040
+      - 6066:6066
+      - 7077:7077
+#      - 8080:8080
+      - 9090:9090
+    networks:
+      - spark-network
+
+  docker-spark-2:
+    image: kduda/spark:latest
+    container_name: docker-spark-2
+    environment:
+      - SPARK_NODE_ROLE=slave
+      - SPARK_MASTER_URL=docker-spark-1:7077
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=1g
+    volumes:
+      - data-2:/tmp/data
+    links:
+      - docker-spark-1
+    ports:
+      - 8081:8081
+    networks:
+      - spark-network
+
+  docker-spark-3:
+    image: kduda/spark:latest
+    container_name: docker-spark-3
+    environment:
+      - SPARK_NODE_ROLE=slave
+      - SPARK_MASTER_URL=docker-spark-1:7077
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=1g
+    volumes:
+      - data-3:/tmp/data
+    links:
+      - docker-spark-1
+    ports:
+      - 8082:8082
+    networks:
+      - spark-network
+
+  docker-spark-4:
+    image: kduda/spark:latest
+    container_name: docker-spark-4
+    environment:
+      - SPARK_NODE_ROLE=slave
+      - SPARK_MASTER_URL=docker-spark-1:7077
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=1g
+    volumes:
+      - data-4:/tmp/data
+    links:
+      - docker-spark-1
+    ports:
+      - 8083:8083
+    networks:
+      - spark-network
+
+  docker-spark-5:
+    image: kduda/spark:latest
+    container_name: docker-spark-5
+    environment:
+      - SPARK_NODE_ROLE=slave
+      - SPARK_MASTER_URL=docker-spark-1:7077
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=1g
+    volumes:
+      - data-5:/tmp/data
+    links:
+      - docker-spark-1
+    ports:
+      - 8084:8084
+    networks:
+      - spark-network
+
+volumes:
+  data-1:
+    driver: local
+  data-2:
+    driver: local
+  data-3:
+    driver: local
+  data-4:
+    driver: local
+  data-5:
+    driver: local
+
+networks:
+  spark-network:
+    driver: bridge
