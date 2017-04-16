@@ -9,7 +9,7 @@
 FROM openjdk:8-jre-alpine
 
 MAINTAINER Kamil Duda <kamilduda01@gmail.com>
-LABEL version = "java_8_spark_2.1.0"
+LABEL version = "jre_8_spark_2.1.0"
 
 # Version
 ENV SPARK_VERSION="2.1.0"
