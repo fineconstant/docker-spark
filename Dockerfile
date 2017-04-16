@@ -12,12 +12,10 @@ MAINTAINER Kamil Duda <kamilduda01@gmail.com>
 LABEL version = "java_8_spark_2.1.0"
 
 # Version
-ENV SPARK_VERSION=2.1.0
+ENV SPARK_VERSION="2.1.0"
 
 # Set home
-ENV SPARK_HOME=/usr/local/spark-$SPARK_VERSION
-
-RUN echo $SPARK_HOME
+ENV SPARK_HOME="/usr/local/spark-$SPARK_VERSION"
 
 # Update system
 RUN \
@@ -28,13 +26,19 @@ RUN \
   rm -rf /var/lib/apk/* && \
   rm -rf /etc/apk/cache/*
 
-# Install Spark
-ARG ARCHIVE=spark-$SPARK_VERSION-bin-without-hadoop.tgz
+## Install Spark
+
+# Build download URL
+# http://www.apache.org/dyn/closer.lua/spark/spark-2.1.0/spark-2.1.0-bin-without-hadoop.tgz
+ARG ARCHIVE_FILE=spark-$SPARK_VERSION-bin-without-hadoop.tgz
+ARG ARCHIVE_URL=http://ftp.ps.pl/pub/apache/spark/spark-$SPARK_VERSION/$ARCHIVE_FILE
+
+# Download and install
 RUN \
   mkdir -p "${SPARK_HOME}" && \
-  wget http://ftp.ps.pl/pub/apache/spark/spark-$SPARK_VERSION/$ARCHIVE && \
-  tar -xzf $ARCHIVE --strip-components=1 -C $SPARK_HOME && \
-  rm -f $ARCHIVE
+  wget $ARCHIVE_URL && \
+  tar -xzf $ARCHIVE_FILE --strip-components=1 -C $SPARK_HOME && \
+  rm -f $ARCHIVE_FILE
 
 # Expose ports
-EXPOSE 6066 7077 8080 8081
+EXPOSE 8080 8081 7077 6066
