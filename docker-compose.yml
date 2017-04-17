@@ -9,18 +9,17 @@ services:
     hostname: docker-spark-1
     environment:
       - SPARK_NODE_ROLE=master
-      - SPARK_MASTER_WEBUI_PORT=9090
       - SPARK_MASTER_CORES=1
       - SPARK_MASTER_MEMORY=1g
       - SPARK_PUBLIC_DNS=localhost
     volumes:
       - data-1:/tmp
     ports:
+#      - HOST:CONTAINER
       - 4040:4040
       - 6066:6066
       - 7077:7077
-#      - 8080:8080
-      - 9090:9090
+      - 9090:8080
     networks:
       - spark-network
 
