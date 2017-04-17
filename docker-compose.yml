@@ -4,15 +4,17 @@
 version: '2'
 services:
   docker-spark-1:
-    image: kduda/spark:jre-8_spark-2.1.0
+    image: kduda/spark:latest
     container_name: docker-spark-1
+    hostname: docker-spark-1
     environment:
       - SPARK_NODE_ROLE=master
       - SPARK_MASTER_WEBUI_PORT=9090
       - SPARK_MASTER_CORES=1
       - SPARK_MASTER_MEMORY=1g
+      - SPARK_PUBLIC_DNS=localhost
     volumes:
-      - data-1:/tmp/data
+      - data-1:/tmp
     ports:
       - 4040:4040
       - 6066:6066
@@ -28,10 +30,11 @@ services:
     environment:
       - SPARK_NODE_ROLE=slave
       - SPARK_MASTER_URL=docker-spark-1:7077
+      - SPARK_PUBLIC_DNS=localhost
       - SPARK_WORKER_CORES=1
       - SPARK_WORKER_MEMORY=1g
     volumes:
-      - data-2:/tmp/data
+      - data-2:/tmp
     links:
       - docker-spark-1
     ports:
@@ -45,10 +48,11 @@ services:
     environment:
       - SPARK_NODE_ROLE=slave
       - SPARK_MASTER_URL=docker-spark-1:7077
+      - SPARK_PUBLIC_DNS=localhost
       - SPARK_WORKER_CORES=1
       - SPARK_WORKER_MEMORY=1g
     volumes:
-      - data-3:/tmp/data
+      - data-3:/tmp
     links:
       - docker-spark-1
     ports:
@@ -62,10 +66,11 @@ services:
     environment:
       - SPARK_NODE_ROLE=slave
       - SPARK_MASTER_URL=docker-spark-1:7077
+      - SPARK_PUBLIC_DNS=localhost
       - SPARK_WORKER_CORES=1
       - SPARK_WORKER_MEMORY=1g
     volumes:
-      - data-4:/tmp/data
+      - data-4:/tmp
     links:
       - docker-spark-1
     ports:
@@ -79,10 +84,11 @@ services:
     environment:
       - SPARK_NODE_ROLE=slave
       - SPARK_MASTER_URL=docker-spark-1:7077
+      - SPARK_PUBLIC_DNS=localhost
       - SPARK_WORKER_CORES=1
       - SPARK_WORKER_MEMORY=1g
     volumes:
-      - data-5:/tmp/data
+      - data-5:/tmp
     links:
       - docker-spark-1
     ports:
