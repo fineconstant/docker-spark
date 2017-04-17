@@ -94,20 +94,6 @@ services:
     networks:
       - spark-network
 
-  docker-zeppelin:
-    image: kduda/zeppelin:latest
-    container_name: docker-zeppelin
-    volumes:
-      - logs:/opt/zeppelin/logs
-      - notebook:/opt/zeppelin/notebook
-    links:
-      - docker-spark-1
-    ports:
-      - 9080:8080
-      - 9443:8443
-    networks:
-      - spark-network
-
 volumes:
   data-1:
     driver: local
@@ -118,10 +104,6 @@ volumes:
   data-4:
     driver: local
   data-5:
-    driver: local
-  logs:
-    driver: local
-  notebook:
     driver: local
 
 networks:
