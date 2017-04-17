@@ -13,5 +13,6 @@ Based on ["A minimal Ubuntu base image modified for Docker-friendliness"](https:
 
 This image exposes `8080 - 9090, 7077, 6066, 4040` ports.
 
-### start a spark cluster with master and 4 workers using [`docker-compose.yml`](https://github.com/DudaKamil/docker-spark/blob/master/docker-compose.yml)
-`docker-compose up -d`
+### start a spark cluster with `docker-compose up -d`
+* [`spark/docker-compose.yml`](https://github.com/DudaKamil/docker-spark/blob/master/spark/docker-compose.yml) - Spark Master and 4 workers 
+* [`spark-zeppelin/docker-compose.yml`](https://github.com/DudaKamil/docker-spark/blob/master/spark-zeppelin/docker-compose.yml) - Zeppelin with Spark Master and 4 workers
